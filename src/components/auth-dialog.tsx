@@ -11,8 +11,14 @@ import {
 import { AUTH_TRIGGER } from "@/constants";
 import { Button } from "./ui/button";
 import { ArrowRight, Lock } from "lucide-react";
+import { loginWithOAuth } from "@/service/auth/login-with-oauth";
 
 export default function AuthDialog() {
+  const hanldeLoginWith = async (proiver: "github" | "google") => {
+    console.log("hello");
+    await loginWithOAuth(proiver);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -28,12 +34,22 @@ export default function AuthDialog() {
             Choose the authentication method you want to log in with{" "}
           </DialogDescription>
         </DialogHeader>
-        <Button className="group w-full cursor-pointer gap-2 bg-gradient-to-br from-accent via-primary via-60% to-primary transition-transform hover:scale-95 hover:opacity-90 sm:h-14 sm:px-10 sm:text-base">
+        <Button
+          className="group w-full cursor-pointer gap-2 bg-gradient-to-br from-accent via-primary via-60% to-primary transition-transform hover:scale-95 hover:opacity-90 sm:h-14 sm:px-10 sm:text-base"
+          onClick={() => {
+            hanldeLoginWith("github");
+          }}
+        >
           Login with Github{" "}
           <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
         </Button>
 
-        <Button className="group w-full cursor-pointer gap-2 bg-gradient-to-br from-accent via-primary via-60% to-primary transition-transform hover:scale-95 hover:opacity-90 sm:h-14 sm:px-10 sm:text-base">
+        <Button
+          className="group w-full cursor-pointer gap-2 bg-gradient-to-br from-accent via-primary via-60% to-primary transition-transform hover:scale-95 hover:opacity-90 sm:h-14 sm:px-10 sm:text-base"
+          onClick={() => {
+            hanldeLoginWith("google");
+          }}
+        >
           Login with Google{" "}
           <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
         </Button>
