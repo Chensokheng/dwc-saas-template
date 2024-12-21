@@ -25,12 +25,11 @@ export default function CheckoutButton({
     if (!user?.id) {
       setPriceId(priceId);
       document.getElementById(AUTH_TRIGGER)?.click();
+    } else if (user?.subscription?.status) {
+      router.push("/dashboard");
+    } else {
+      router.push("/checkout/" + priceId);
     }
-    // if user have not subscribe yet redirect to checkout else redirect user to /dashboard
-
-    // if(u)
-    //   router.push("/checkout/price-id");
-    // }
   };
 
   return (

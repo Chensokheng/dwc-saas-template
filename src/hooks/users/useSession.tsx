@@ -9,7 +9,7 @@ export default function useSession() {
       const sessionUser = await supabase.auth.getUser();
       const { error, data } = await supabase
         .from("users")
-        .select("*,user_info(email)")
+        .select("*,user_info(email),subscription(*)")
         .eq("id", sessionUser.data.user?.id!)
         .single();
       if (error) {

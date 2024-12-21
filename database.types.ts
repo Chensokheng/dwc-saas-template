@@ -9,6 +9,41 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      subscription: {
+        Row: {
+          created_at: string
+          end_at: string
+          status: boolean
+          stripe_customer_id: string
+          stripe_subscription_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          end_at: string
+          status?: boolean
+          stripe_customer_id: string
+          stripe_subscription_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          end_at?: string
+          status?: boolean
+          stripe_customer_id?: string
+          stripe_subscription_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscription_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_info: {
         Row: {
           email: string
@@ -58,7 +93,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      on_checkout_successfully: {
+        Args: {
+          arg_email: string
+          arg_stripe_subscription_id: string
+          arg_stripe_customer_id: string
+          arg_end_at: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
