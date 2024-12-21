@@ -4,8 +4,8 @@ export default function page({
   params,
 }: {
   params: {
-    "price-id": string;
+    id: string;
   };
 }) {
-  return <div>{params["price-id"]}</div>;
+  return <div>{params.id}</div>;
 }

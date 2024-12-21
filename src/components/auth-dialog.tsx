@@ -12,11 +12,14 @@ import { AUTH_TRIGGER } from "@/constants";
 import { Button } from "./ui/button";
 import { ArrowRight, Lock } from "lucide-react";
 import { loginWithOAuth } from "@/service/auth/login-with-oauth";
+import { useGlobalStore } from "@/store/global";
 
 export default function AuthDialog() {
+  const selectPriceId = useGlobalStore((state) => state.selectPriceId);
+
   const hanldeLoginWith = async (proiver: "github" | "google") => {
-    console.log("hello");
-    await loginWithOAuth(proiver);
+    const redirectUrl = "/checkout/" + selectPriceId;
+    await loginWithOAuth(proiver, redirectUrl);
   };
 
   return (

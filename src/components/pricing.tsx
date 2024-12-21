@@ -1,3 +1,4 @@
+"use client";
 import { PricingCard } from "@/components/pricing-card";
 import useSession from "@/hooks/users/useSession";
 

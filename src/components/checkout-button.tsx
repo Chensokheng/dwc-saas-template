@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { AUTH_TRIGGER } from "@/constants";
 import useSession from "@/hooks/users/useSession";
 import { useRouter } from "next/navigation";
+import { useGlobalStore } from "@/store/global";
 
 export default function CheckoutButton({
   text,
@@ -17,10 +18,12 @@ export default function CheckoutButton({
   className?: string;
 }) {
   const { data: user } = useSession();
+  const setPriceId = useGlobalStore((state) => state.setPriceId);
   const router = useRouter();
 
   const handleCheckout = () => {
     if (!user?.id) {
+      setPriceId(priceId);
       document.getElementById(AUTH_TRIGGER)?.click();
     }
     // if user have not subscribe yet redirect to checkout else redirect user to /dashboard
