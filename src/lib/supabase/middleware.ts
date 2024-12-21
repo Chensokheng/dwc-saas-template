@@ -49,7 +49,7 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (isSubscriptionPage && user?.user_metadata?.subscription_status !== "active") {
-    return NextResponse.redirect(new URL("/", request.nextUrl));
+    return NextResponse.redirect(new URL("/#pricing", request.nextUrl));
   }
 
   // 5. Redirect to /dashboard if the user is authenticated

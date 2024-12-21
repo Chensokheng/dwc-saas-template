@@ -8,8 +8,11 @@ import { NavItem } from "@/components/nav-item";
 import { Button } from "@/components/ui/button";
 import { MobileNavbar } from "@/components/mobile-navbar";
 import { MobileNavItem } from "@/components/mobile-nav-item";
+import useSession from "@/hooks/users/useSession";
 
 export function Header() {
+  const { data: user } = useSession();
+
   return (
     <motion.header
       animate={{ opacity: 1 }}
@@ -26,11 +29,19 @@ export function Header() {
           <NavItem href="/pricing" label="Pricing" />
         </nav>
         <div className="hidden items-center gap-2 md:flex">
-          <Button asChild>
-            <Link href="#" className="cursor-pointer">
-              Get Started
-            </Link>
-          </Button>
+          {user?.subscription?.user_id ? (
+            <Button asChild>
+              <Link href="/dashboard" className="cursor-pointer">
+                Dashboard
+              </Link>
+            </Button>
+          ) : (
+            <Button asChild>
+              <Link href="#pricing" className="cursor-pointer">
+                Get Started
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
       <MobileNavbar>

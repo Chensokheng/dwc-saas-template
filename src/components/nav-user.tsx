@@ -1,6 +1,6 @@
 "use client";
 
-import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut } from "lucide-react";
+import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, Loader2, LogOut } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -19,10 +19,19 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import useSession from "@/hooks/users/useSession";
+import { manageBillingPortal } from "@/service/stripe/billing";
+import { useTransition } from "react";
 
 export function NavUser() {
+  const [isPending, startTransition] = useTransition();
   const { isMobile } = useSidebar();
   const { data: user } = useSession();
+
+  const handleMangeBilling = () => {
+    startTransition(() => {
+      manageBillingPortal();
+    });
+  };
 
   return (
     <SidebarMenu>
@@ -69,8 +78,8 @@ export function NavUser() {
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
+              <DropdownMenuItem onClick={handleMangeBilling}>
+                {isPending ? <Loader2 className=" animate-spin" /> : <CreditCard />}
                 Billing
               </DropdownMenuItem>
               <DropdownMenuItem>

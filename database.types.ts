@@ -15,7 +15,7 @@ export type Database = {
           end_at: string
           status: boolean
           stripe_customer_id: string
-          stripe_subscription_id: string
+          stripe_subscription_id: string | null
           user_id: string
         }
         Insert: {
@@ -23,7 +23,7 @@ export type Database = {
           end_at: string
           status?: boolean
           stripe_customer_id: string
-          stripe_subscription_id: string
+          stripe_subscription_id?: string | null
           user_id: string
         }
         Update: {
@@ -31,7 +31,7 @@ export type Database = {
           end_at?: string
           status?: boolean
           stripe_customer_id?: string
-          stripe_subscription_id?: string
+          stripe_subscription_id?: string | null
           user_id?: string
         }
         Relationships: [
@@ -101,6 +101,12 @@ export type Database = {
           arg_status: boolean
           arg_stripe_customer_id: string
         }[]
+      }
+      on_cancel_subscription: {
+        Args: {
+          arg_stripe_subscription_id: string
+        }
+        Returns: undefined
       }
       on_checkout_successfully: {
         Args: {

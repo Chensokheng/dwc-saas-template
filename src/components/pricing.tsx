@@ -10,7 +10,10 @@ export function Pricing() {
     <section className="container flex flex-col items-center gap-6 pb-40 pt-24 sm:gap-7">
       <div className="flex flex-col items-center gap-3">
         <span className="text-left font-heading font-bold italic text-primary">Pricing</span>
-        <h2 className="text-balance text-left font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+        <h2
+          className="text-balance text-left font-heading text-3xl font-bold tracking-tight sm:text-4xl"
+          id="pricing"
+        >
           Simple pricing
         </h2>
       </div>

@@ -19,11 +19,18 @@ export async function checkout(email: string, redirectTo: string, priceId: strin
     redirect("/dashboard");
   }
 
-  return await stripe.checkout.sessions.create({
+  const checkoutObject: any = {
     success_url: redirectTo || process.env.APP_URL,
     cancel_url: process.env.APP_URL,
-    customer_email: data[0]?.arg_stripe_customer_id || email,
     line_items: [{ price: priceId, quantity: 1 }],
     mode: "subscription",
-  });
+  };
+
+  if (data[0]?.arg_stripe_customer_id) {
+    checkoutObject["customer"] = data[0]?.arg_stripe_customer_id;
+  } else {
+    checkoutObject["customer_email"] = email;
+  }
+
+  return await stripe.checkout.sessions.create(checkoutObject);
 }

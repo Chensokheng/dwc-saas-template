@@ -27,27 +27,13 @@ export async function POST(req: any) {
         const end_at = new Date(data.lines.data[0].period.end * 1000).toISOString();
 
         await onCheckoutSuccessfully(email, subscription_id, customer_id, end_at);
-
-      // onCheckoutSuccessfully(email, subscription_id, customer_id);
+        break;
 
       case "customer.subscription.deleted":
         const deleteSubscription = event.data.object;
-        // await onCacnelSubscription(deleteSubscription.status === "active", deleteSubscription.id);
+        await onCacnelSubscription(deleteSubscription.id);
         break;
-      case "customer.updated":
-        const customer = event.data.object;
-        const subscription = await stripe.subscriptions.list({
-          customer: customer.id,
-        });
-        if (subscription.data.length) {
-          const sub = subscription.data[0];
-          //   await onSuccessSubscription(
-          //     sub.id,
-          //     customer.id,
-          //     sub.status === "active",
-          //     customer.email!,
-          //   );
-        }
+
       default:
         console.log(`Unhandled event type ${event.type}`);
     }
@@ -72,42 +58,9 @@ const onCheckoutSuccessfully = async (
   });
 };
 
-// const onSuccessSubscription = async (
-//   subscription_id: string,
-//   customer_id: string,
-//   status: boolean,
-//   email: string,
-// ) => {
-//   const supabase = await createSupbaseAdmin();
-//   const { data } = await supabase
-//     .from("users")
-//     .update({
-//       stripe_subscriptoin_id: subscription_id,
-//       stripe_customer_id: customer_id,
-//       subscription_status: status,
-//     })
-//     .eq("email", email)
-//     .select("id")
-//     .single();
-//   await supabase.auth.admin.updateUserById(data?.id!, {
-//     user_metadata: { stripe_customer_id: null },
-//   });
-// };
-
-// const onCacnelSubscription = async (status: boolean, subscription_id: string) => {
-//   const supabase = await createSupbaseAdmin();
-//   const { data, error } = await supabase
-//     .from("users")
-//     .update({
-//       stripe_subscriptoin_id: null,
-//       stripe_customer_id: null,
-//       subscription_status: status,
-//     })
-//     .eq("stripe_subscriptoin_id", subscription_id)
-//     .select("id")
-//     .single();
-
-//   await supabase.auth.admin.updateUserById(data?.id!, {
-//     user_metadata: { stripe_customer_id: null },
-//   });
-// };
+const onCacnelSubscription = async (subscription_id: string) => {
+  const supabase = createSupabaseAdmin();
+  await supabase.rpc("on_cancel_subscription", {
+    arg_stripe_subscription_id: subscription_id,
+  });
+};
