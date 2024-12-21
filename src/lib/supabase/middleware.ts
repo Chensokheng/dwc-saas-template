@@ -3,11 +3,13 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const protectedRoutes = ["/dashboard"];
 const publicRoutes = ["/auth"];
+const subscriptionRoutes = ["/dashboard"];
 
 export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.includes(path) && path.startsWith("/checkout");
+  const isProtectedRoute = protectedRoutes.includes(path) || path.startsWith("/checkout");
   const isPublicRoute = publicRoutes.includes(path);
+  const isSubscriptionPage = subscriptionRoutes.includes(path);
 
   let supabaseResponse = NextResponse.next({
     request,
@@ -44,6 +46,10 @@ export async function updateSession(request: NextRequest) {
 
   if (isProtectedRoute && !user?.id) {
     return NextResponse.redirect(new URL("/auth", request.nextUrl));
+  }
+
+  if (isSubscriptionPage && user?.user_metadata?.subscription_status !== "active") {
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
   // 5. Redirect to /dashboard if the user is authenticated
