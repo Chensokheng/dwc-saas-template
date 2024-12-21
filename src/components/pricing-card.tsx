@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { PricingFeatureItem } from "@/components/pricing-feature-item";
 import { CtaButton } from "@/components/cta-button";
 import { cn } from "@/lib/utils";
+import CheckoutButton from "./checkout-button";
 
 interface PricingCardProps {
   name: string;
@@ -30,9 +31,9 @@ export function PricingCard({
   className,
 }: PricingCardProps) {
   return (
-    <Card className={cn("relative border border-0 shadow-lg", className)}>
+    <Card className={cn("relative border shadow-lg", className)}>
       <CardContent className="flex flex-col items-start p-8">
-        <h4 className="font-heading text-3xl font-bold font-semibold text-foreground">{name}</h4>
+        <h4 className="font-heading text-3xl font-semibold text-foreground">{name}</h4>
         <div className="mt-5">
           <span className="font-heading text-5xl font-semibold">${price}</span>
           <span className="text-sm"> /month</span>
@@ -46,7 +47,7 @@ export function PricingCard({
           <PricingFeatureItem text={feature4} />
           <PricingFeatureItem text={feature5} />
         </ul>
-        <CtaButton href="#" text="Get Started" className="mt-10 w-full" />
+        <CheckoutButton text="Get Started" priceId="1" className=" mt-10" />
         <p className="mx-auto mt-4 text-balance text-center text-sm text-muted-foreground">
           No credit card required
         </p>
