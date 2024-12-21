@@ -1,6 +1,9 @@
 import { PricingCard } from "@/components/pricing-card";
+import useSession from "@/hooks/users/useSession";
 
 export function Pricing() {
+  useSession();
+
   return (
     <section className="container flex flex-col items-center gap-6 pb-40 pt-24 sm:gap-7">
       <div className="flex flex-col items-center gap-3">

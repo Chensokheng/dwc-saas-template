@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { PricingFeatureItem } from "@/components/pricing-feature-item";
-import { CtaButton } from "@/components/cta-button";
 import { cn } from "@/lib/utils";
 import CheckoutButton from "./checkout-button";
 

@@ -4,6 +4,8 @@ import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AUTH_TRIGGER } from "@/constants";
+import useSession from "@/hooks/users/useSession";
+import { useRouter } from "next/navigation";
 
 export default function CheckoutButton({
   text,
@@ -14,8 +16,18 @@ export default function CheckoutButton({
   priceId: string;
   className?: string;
 }) {
+  const { data: user } = useSession();
+  const router = useRouter();
+
   const handleCheckout = () => {
-    document.getElementById(AUTH_TRIGGER)?.click();
+    if (!user?.id) {
+      document.getElementById(AUTH_TRIGGER)?.click();
+    }
+    // if user have not subscribe yet redirect to checkout else redirect user to /dashboard
+
+    // if(u)
+    //   router.push("/checkout/price-id");
+    // }
   };
 
   return (
