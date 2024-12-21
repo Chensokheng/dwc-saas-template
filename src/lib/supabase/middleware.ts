@@ -6,7 +6,7 @@ const publicRoutes = ["/auth"];
 
 export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.includes(path);
+  const isProtectedRoute = protectedRoutes.includes(path) && path.startsWith("/checkout");
   const isPublicRoute = publicRoutes.includes(path);
 
   let supabaseResponse = NextResponse.next({

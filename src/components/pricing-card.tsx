@@ -8,6 +8,7 @@ interface PricingCardProps {
   name: string;
   description: string;
   price: number;
+  priceId: string;
   isMostPopular: boolean;
   feature1: string;
   feature2: string;
@@ -21,6 +22,7 @@ export function PricingCard({
   name,
   description,
   price,
+  priceId,
   isMostPopular,
   feature1,
   feature2,
@@ -46,7 +48,7 @@ export function PricingCard({
           <PricingFeatureItem text={feature4} />
           <PricingFeatureItem text={feature5} />
         </ul>
-        <CheckoutButton text="Get Started" priceId="1" className=" mt-10" />
+        <CheckoutButton text="Get Started" priceId={priceId} className=" mt-10" />
         <p className="mx-auto mt-4 text-balance text-center text-sm text-muted-foreground">
           No credit card required
         </p>

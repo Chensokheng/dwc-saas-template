@@ -1,5 +1,6 @@
 "use client";
 import { PricingCard } from "@/components/pricing-card";
+import { ENTER_PRICE_ID, GROWTH_PRICE_ID, START_UP_PRICE_ID } from "@/constants";
 import useSession from "@/hooks/users/useSession";
 
 export function Pricing() {
@@ -28,6 +29,7 @@ export function Pricing() {
           feature5="Custom branding"
           description="For small companies and teams."
           isMostPopular={false}
+          priceId={START_UP_PRICE_ID}
         />
         <PricingCard
           name="Growth"
@@ -40,6 +42,7 @@ export function Pricing() {
           description="For larger companies and teams."
           isMostPopular
           className="border-2 border-primary"
+          priceId={GROWTH_PRICE_ID}
         />
         <PricingCard
           name="Enterprise"
@@ -51,6 +54,7 @@ export function Pricing() {
           feature5="Custom reporting"
           description="For very large businesses."
           isMostPopular={false}
+          priceId={ENTER_PRICE_ID}
         />
       </div>
     </section>
