@@ -158,7 +158,7 @@ export function Hero() {
           transition={{ delay: 0.4, duration: 0.4 }}
           className="flex"
         >
-          <CtaButton href="#" text="Get Started" />
+          <CtaButton href="#pricing" text="Get Started" />
         </motion.div>
         <motion.div
           animate={{ y: 0.4, opacity: 1 }}

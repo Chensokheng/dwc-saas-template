@@ -45,7 +45,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (isProtectedRoute && !user?.id) {
-    return NextResponse.redirect(new URL("/auth", request.nextUrl));
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
   if (isSubscriptionPage && user?.user_metadata?.subscription_status !== "active") {
