@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AUTH_TRIGGER } from "@/constants";
 
 export default function CheckoutButton({
   text,
@@ -14,7 +15,7 @@ export default function CheckoutButton({
   className?: string;
 }) {
   const handleCheckout = () => {
-    console.log(priceId);
+    document.getElementById(AUTH_TRIGGER)?.click();
   };
 
   return (

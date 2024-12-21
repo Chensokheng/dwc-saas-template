@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Inter, Bricolage_Grotesque } from "next/font/google";
 
 import { cn } from "@/lib/utils";
+import ReactQueryProviders from "@/components/provider/tanstack-query-provider";
+import AuthDialog from "@/components/auth-dialog";
 
 const fontSans = Inter({
   variable: "--font-sans",
@@ -31,10 +33,15 @@ export default function RootLayout({
         className={cn(
           "min-h-screen font-sans antialiased",
           fontSans.variable,
-          fontHeading.variable
+          fontHeading.variable,
         )}
       >
-        {children}
+        <ReactQueryProviders>
+          <main>
+            {children}
+            <AuthDialog />
+          </main>
+        </ReactQueryProviders>
       </body>
     </html>
   );
