@@ -93,6 +93,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_user_subscription: {
+        Args: {
+          arg_email: string
+        }
+        Returns: {
+          arg_status: boolean
+          arg_stripe_customer_id: string
+        }[]
+      }
       on_checkout_successfully: {
         Args: {
           arg_email: string
